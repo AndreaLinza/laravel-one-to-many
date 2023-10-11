@@ -38,6 +38,7 @@ class UpdateProjectRequest extends FormRequest
             'release' => 'required|date',
             'link' => 'required|string',
             'language' => 'nullable|string',
+            'type_id' => 'required|exists:types,id'
         ];
     }
 

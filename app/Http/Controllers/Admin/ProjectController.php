@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -42,7 +44,9 @@ class ProjectController extends Controller
 
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+
+        return view('admin.projects.create', compact('type'));
     }
 
 
@@ -52,6 +56,8 @@ class ProjectController extends Controller
     {
 
         $data = $request->validated();
+
+        
 
         $data['language'] = explode(',', $data['language']);
 
@@ -85,8 +91,9 @@ class ProjectController extends Controller
 
     public function edit($slug){
         $project = Project::where('slug', $slug)->firstOrFail();
+        $types = Type::all();
 
-        return view('admin.projects.edit', compact('project'));
+        return view('admin.projects.edit', compact('project','types'));
     }
 
 
@@ -94,6 +101,7 @@ class ProjectController extends Controller
 
     public function update(UpdateProjectRequest $request, $slug){
         $project = Project::where('slug', $slug)->firstOrFail();
+
 
         $data = $request->validated();
 
@@ -115,6 +123,7 @@ class ProjectController extends Controller
             
             $data['thumb'] = $image_path;
         }
+
 
         $project->update($data);
 

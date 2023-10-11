@@ -38,6 +38,8 @@ class StoreProjectRequest extends FormRequest
             'release' => 'required|date',
             'link' => 'required|string',
             'language' => 'nullable|string',
+            //exists si assicura che l'id passato esista nella tabella
+            'type_id' => 'nullable|exists:types,id'
         ];
     }
 

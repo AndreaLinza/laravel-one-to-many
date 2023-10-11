@@ -35,29 +35,48 @@
         @enderror
     </div>
 
-    {{-- Thumb --}}
+    <div class="row row-cols-3">
+        {{-- Thumb --}}
 
-    <div class="mb-3">
-        <label for="thumb">Immagine</label>
-        <img src="{{asset('storage/' . $project?->thumb )}}" alt="thumbnail" class="img-thumbnail" style="width:100px; aspect-ratio:1/1">
-        <input type="file" accept="image/*" name="thumb" {{--value="{{ old('thumb', $project?->thumb) }}"    nei type='file' il value non esiste           --}}
-            class="form-control @error('thumb') is-invalid @enderror" id="thumb"
-            placeholder="Inserisci il link dell'immagine">
-        @error('thumb')
-            <div class="invalid_feedback text-danger">{{$message}}{{-- L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB --}}</div>
-        @enderror
-    </div>
+        <div class="mb-3">
+            <label for="thumb">Immagine</label>
+                <img src="{{ asset('storage/' . $project?->thumb) }}" alt="thumbnail" class="img-thumbnail mb-2"
+                    style="width:100px; aspect-ratio:1/1">
+                <input type="file" accept="image/*" name="thumb" {{-- value="{{ old('thumb', $project?->thumb) }}"    nei type='file' il value non esiste --}}
+                    class="form-control @error('thumb') is-invalid @enderror" id="thumb"
+                    placeholder="Inserisci il link dell'immagine">
+            @error('thumb')
+                <div class="invalid_feedback text-danger">{{ $message }}{{-- L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB --}}</div>
+            @enderror
+        </div>
 
-    {{-- Release  --}}
 
-    <div class="mb-3">
-        <label for="release">Data Rilascio</label>
-        <input type="date" name="release" value="{{ old('release', $project?->release->format('Y-m-d')) }}"
-            class="form-control @error('release') is-invalid @enderror" id="release"
-            placeholder="Inserisci il titolo">
-        @error('release')
-            <div class="invalid_feedback text-danger">{{ $message }}</div>
-        @enderror
+        {{-- Type --}}
+        <div class="mb-3 pt-2">
+            <label class="mb-2" for="type">Tipologia</label>
+            <select name="type_id" {{-- value="{{ old('type', $project?->type) }}"    nei type='file' il value non esiste  --}}
+                class="form-select @error('type') is-invalid @enderror" id="type_id">
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}" {{ $project?->type_id === $type->id ? 'selected' : ''}}>{{ $type->name }}</option>
+                @endforeach
+            </select>
+            @error('type')
+                <div class="invalid_feedback text-danger">{{ $message }}{{-- L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB --}}</div>
+            @enderror
+        </div>
+
+
+        {{-- Release  --}}
+
+        <div class="mb-3 pt-2">
+            <label class="mb-2" for="release">Data Rilascio</label>
+            <input type="date" name="release" value="{{ old('release', $project?->release->format('Y-m-d')) }}"
+                class="form-control @error('release') is-invalid @enderror" id="release"
+                placeholder="Inserisci il titolo">
+            @error('release')
+                <div class="invalid_feedback text-danger">{{ $message }}</div>
+            @enderror
+        </div>
     </div>
 
     {{-- Link --}}

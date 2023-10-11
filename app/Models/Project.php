@@ -24,11 +24,12 @@ class Project extends Model
         'slug',
         'link',
         'language',
+        'type_id'
 
     ];
 
-    public function projects(){
+    public function type(){
 
-        return $this->hasMany(Project::class);
+        return $this->belongsTo(Type::class);
     }
 }
