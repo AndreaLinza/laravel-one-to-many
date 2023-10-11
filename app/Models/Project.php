@@ -26,4 +26,9 @@ class Project extends Model
         'language',
 
     ];
+
+    public function projects(){
+
+        return $this->hasMany(Project::class);
+    }
 }

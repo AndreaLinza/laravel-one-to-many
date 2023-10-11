@@ -20,7 +20,7 @@
         <input type="text" name="title" value="{{ old('title', $project?->title) }}"
             class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Inserisci il titolo">
         @error('title')
-            <div class="invalid_feedback">{{ $message }}</div>
+            <div class="invalid_feedback text-danger">{{ $message }}</div>
         @enderror
     </div>
 
@@ -31,7 +31,7 @@
         <textarea name="description" style="height: 200px" class="form-control @error('description') is-invalid @enderror"
             id="description" placeholder="Inserisci la descrizione">{{ old('description', $project?->description) }}</textarea>
         @error('description')
-            <div class="invalid_feedback">{{ $message }}</div>
+            <div class="invalid_feedback text-danger">{{ $message }}</div>
         @enderror
     </div>
 
@@ -44,7 +44,7 @@
             class="form-control @error('thumb') is-invalid @enderror" id="thumb"
             placeholder="Inserisci il link dell'immagine">
         @error('thumb')
-            <div class="invalid_feedback text-danger">L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB</div>
+            <div class="invalid_feedback text-danger">{{$message}}{{-- L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB --}}</div>
         @enderror
     </div>
 
@@ -56,7 +56,7 @@
             class="form-control @error('release') is-invalid @enderror" id="release"
             placeholder="Inserisci il titolo">
         @error('release')
-            <div class="invalid_feedback">{{ $message }}</div>
+            <div class="invalid_feedback text-danger">{{ $message }}</div>
         @enderror
     </div>
 
@@ -68,7 +68,7 @@
             class="form-control @error('link') is-invalid @enderror" id="link"
             placeholder="Inserisci il link della repo">
         @error('link')
-            <div class="invalid_feedback">{{ $message }}</div>
+            <div class="invalid_feedback text-danger">{{ $message }}</div>
         @enderror
     </div>
 
@@ -80,7 +80,7 @@
             class="form-control @error('language') is-invalid @enderror" id="language"
             placeholder="Inserisci i linguaggi conosciuti">
         @error('language')
-            <div class="invalid_feedback">{{ $message }}</div>
+            <div class="invalid_feedback text-danger">{{ $message }}</div>
         @enderror
     </div>
 
