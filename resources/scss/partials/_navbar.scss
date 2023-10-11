@@ -1,0 +1,10 @@
+@import "./variables";
+
+.nav-position{
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    background-color: $primary-color;
+    color: $secondary-color !important;
+    //--bs-nav-link-color:$secondary-color !important
+}
