@@ -57,7 +57,9 @@ class UpdateProjectRequest extends FormRequest
             //'thumb.required' => 'E\' richiesta un\'immagine',
             'thumb.max' => 'L\'immagine sembra essere troppo lunga, inserire un\'immagine di max 5MB',
             'release'=> 'Selezionare la data di pubblicazione della repo',
-            'link' => 'Inserire il link per la repo'
+            'link' => 'Inserire il link per la repo',
+            'type_id.exists' => 'Selezionare una tipologia'
+
         ];
     }
 }

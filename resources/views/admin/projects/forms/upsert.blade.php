@@ -40,11 +40,19 @@
 
         <div class="mb-3">
             <label for="thumb">Immagine</label>
+            {{-- @dump($project->thumb) --}}
+
+            @if ($project?->thumb === null)
+                <img src="{{ asset('storage/' . $project?->thumb) }}" alt="thumbnail" class="img-thumbnail mb-2 d-none"
+                    style="width:100px; aspect-ratio:1/1">
+            @else
                 <img src="{{ asset('storage/' . $project?->thumb) }}" alt="thumbnail" class="img-thumbnail mb-2"
                     style="width:100px; aspect-ratio:1/1">
-                <input type="file" accept="image/*" name="thumb" {{-- value="{{ old('thumb', $project?->thumb) }}"    nei type='file' il value non esiste --}}
-                    class="form-control @error('thumb') is-invalid @enderror" id="thumb"
-                    placeholder="Inserisci il link dell'immagine">
+            @endif
+
+            <input type="file" accept="image/*" name="thumb" {{-- value="{{ old('thumb', $project?->thumb) }}"    nei type='file' il value non esiste --}}
+                class="form-control @error('thumb') is-invalid @enderror" id="thumb"
+                placeholder="Inserisci il link dell'immagine">
             @error('thumb')
                 <div class="invalid_feedback text-danger">{{ $message }}{{-- L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB --}}</div>
             @enderror
@@ -53,14 +61,16 @@
 
         {{-- Type --}}
         <div class="mb-3 pt-2">
-            <label class="mb-2" for="type">Tipologia</label>
-            <select name="type_id" {{-- value="{{ old('type', $project?->type) }}"    nei type='file' il value non esiste  --}}
-                class="form-select @error('type') is-invalid @enderror" id="type_id">
+            <label class="mb-2" for="type_id">Tipologia</label>
+            <select name="type_id" {{-- value="{{ old('type', $project?->type) }}"    nei type='file' il value non esiste  --}} class="form-select @error('type_id') is-invalid @enderror"
+                id="type_id">
+                <option value="null">Seleziona tipologia</option>
                 @foreach ($types as $type)
-                    <option value="{{ $type->id }}" {{ $project?->type_id === $type->id ? 'selected' : ''}}>{{ $type->name }}</option>
+                    <option value="{{ $type->id }}" {{ $project?->type_id === $type->id ? 'selected' : '' }}>
+                        {{ $type->name }}</option>
                 @endforeach
             </select>
-            @error('type')
+            @error('type_id')
                 <div class="invalid_feedback text-danger">{{ $message }}{{-- L'immagine sembra essere troppo lunga, inserire un'immagine di max 5MB --}}</div>
             @enderror
         </div>

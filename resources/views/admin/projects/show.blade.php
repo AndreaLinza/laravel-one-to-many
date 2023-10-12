@@ -15,7 +15,7 @@
 
 
                 <p class="card-text">{{ $project->description }}</p>
-                <p>{{$project->type->name}}</p>
+                <p>{{$project->type?->name}}</p>
                 <a class="card-text" href="{{ url($project->link) }}">{{ $project->link }}</a><br>
                 <small class="card-text">{{ $project->release->format('d/m/y') }}</small>
             </div>

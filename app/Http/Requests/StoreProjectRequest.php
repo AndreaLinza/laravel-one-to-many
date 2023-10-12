@@ -39,7 +39,7 @@ class StoreProjectRequest extends FormRequest
             'link' => 'required|string',
             'language' => 'nullable|string',
             //exists si assicura che l'id passato esista nella tabella
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'required|exists:types,id'
         ];
     }
 
@@ -57,7 +57,9 @@ class StoreProjectRequest extends FormRequest
             'thumb.required' => 'E\' richiesta un\'immagine',
             'thumb.max' => 'L\'immagine sembra essere troppo lunga, inserire un\'immagine di max 5MB',
             'release'=> 'Selezionare la data di pubblicazione della repo',
-            'link' => 'Inserire il link per la repo'
+            'link' => 'Inserire il link per la repo',
+            //In questo caso per stampare il messaggio di errore si usa .exists
+            'type_id.exists' => 'Selezionare una tipologia'
         ];
     }
 }
