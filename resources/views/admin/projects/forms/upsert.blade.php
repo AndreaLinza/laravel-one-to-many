@@ -105,7 +105,7 @@
 
     <div class="mb-3">
         <label for="language">Linguaggi</label>
-        <input type="text" name="language" value="{{ old('language', implode(', ', $project?->language ?? [])) }}"
+        <input type="text" name="language" value="{{--{{ old('language', implode(', ', $project?->language ?? [])) }}--}}"
             class="form-control @error('language') is-invalid @enderror" id="language"
             placeholder="Inserisci i linguaggi conosciuti">
         @error('language')

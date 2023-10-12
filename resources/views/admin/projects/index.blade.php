@@ -18,7 +18,7 @@
                                     <h5 class="card-title">{{ $project->title }}</h5>
                                     <p class="card-text">{{ $project->short_description }}</p>
                                     <p class="badge"  style="background-color: rgb({{$project->type->color}})">{{$project->type?->name}}</p>
-                                    <p class="card-text">{{ implode(', ', $project->language) }}</p>
+                                    <p class="card-text">{{--{{ implode(', ', $project->language) }}--}}</p>
                                     <a href="{{ $project->link }}" class="">Link</a>
                                 </div>
                             </div>
