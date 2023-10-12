@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,8 +46,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
 
@@ -59,7 +61,7 @@ class ProjectController extends Controller
 
         
 
-        $data['language'] = explode(',', $data['language']);
+        //$data['language'] = explode(',', $data['language']);
 
 
         $counter = 0;
@@ -77,11 +79,17 @@ class ProjectController extends Controller
 
         $data['thumb'] = Storage::put('projects', $data['thumb']);
 
+
         $project = Project::create($data);
                                                 //Il ::create($data) lo vado ad utilizzare al posto di 
                                                 //$project = new Project();
                                                 //$project->fill($data);
                                                 //$project->save()
+                                                // In pratica va a fare un fill() e save() automatico
+
+        if(key_exists('technologies',$data)){
+            $project->technologies()->attach($data['technologies']);
+        }
 
         return redirect()->route('admin.projects.show', $project->slug);
     }
@@ -92,8 +100,9 @@ class ProjectController extends Controller
     public function edit($slug){
         $project = Project::where('slug', $slug)->firstOrFail();
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project','types'));
+        return view('admin.projects.edit', compact('project','types','technologies'));
     }
 
 
@@ -105,7 +114,7 @@ class ProjectController extends Controller
 
         $data = $request->validated();
 
-        $data['language'] = explode(',', $data['language']);
+        //$data['language'] = explode(',', $data['language']);
 
         //Non è detto che vada a cambiare l'immagine ogni volta che faccio l'update
         //perciò si fa un if per evitare di usare lo Storage::put
@@ -122,7 +131,12 @@ class ProjectController extends Controller
             $image_path = Storage::put('projects', $data['thumb']);
             
             $data['thumb'] = $image_path;
+
         }
+        // il sync($data['nome'])
+        // esegue il detach SOLO delle technology non presenti nel nuovo array
+        // esegue l'attach SOLO delle technology non presenti nel vecchio array
+        $project->technologies()->sync($data["technologies"]);
 
 
         $project->update($data);
@@ -133,13 +147,21 @@ class ProjectController extends Controller
     // -------------Destroy Section---------- //
 
     public function destroy($slug){
+        if(Auth::user()->email !== 'andrealinza@gmail.com'){
+            return abort(403);
+        }
+
         $project = Project::where('slug', $slug)->firstOrFail();
 
         if($project->thumb){
             Storage::delete($project->thumb);
         }
-        
+
+        $project->technologies()->detach();
+
         $project->delete();
+        
+
         return redirect()->route('admin.projects.index');
     }
 

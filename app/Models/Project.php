@@ -24,7 +24,8 @@ class Project extends Model
         'slug',
         'link',
         'language',
-        'type_id',
+        'type_id'
+
         
 
     ];
@@ -35,6 +36,6 @@ class Project extends Model
     }
 
     public function technologies(){
-        return $this->belongsToMany(('technology'));
+        return $this->belongsToMany((Technology::class));
     }
 }

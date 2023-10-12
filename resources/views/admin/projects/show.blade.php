@@ -10,12 +10,17 @@
         <div class="card p-5 shadow">
 
             <h1>{{ $project->title }}</h1>
-            <img class="" src="{{ asset('storage/'. $project->thumb) }}" alt="">
+            <img class="" src="{{ asset('storage/' . $project->thumb) }}" alt="">
             <div class="card-body">
 
 
                 <p class="card-text">{{ $project->description }}</p>
-                <p>{{$project->type?->name}}</p>
+                <p>{{ $project->type?->name }}</p>
+                {{-- @dump($project->technology->name) --}}
+                @foreach ($project->technologies as $technology)
+                    <p>{{ $technology?->name }} <i class="{{ $technology->icon }}"></i></p>
+                    
+                @endforeach
                 <a class="card-text" href="{{ url($project->link) }}">{{ $project->link }}</a><br>
                 <small class="card-text">{{ $project->release->format('d/m/y') }}</small>
             </div>

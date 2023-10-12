@@ -104,10 +104,20 @@
     {{-- Language --}}
 
     <div class="mb-3">
-        <label for="language">Linguaggi</label>
-        <input type="text" name="language" value="{{--{{ old('language', implode(', ', $project?->language ?? [])) }}--}}"
+        <label for="technology_id">Linguaggi</label>
+        <div>
+            @foreach ($technologies as $technology)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="technologies[]" id="{{ $technology->slug }}"
+                        value="{{ $technology->id }}" {{$project?->technologies->contains($technology) ? 'checked' : ''}}>
+                    <label class="form-check-label" for="{{ $technology->slug }}"><i class="{{ $technology->icon }}"></i>{{--{{ $technology->name }}--}}</label>
+                    
+                </div>
+            @endforeach
+        </div>
+        {{-- <input type="text" name="language" value="{{-- {{ old('language', implode(', ', $project?->language ?? [])) }}"
             class="form-control @error('language') is-invalid @enderror" id="language"
-            placeholder="Inserisci i linguaggi conosciuti">
+            placeholder="Inserisci i linguaggi conosciuti"> --}}
         @error('language')
             <div class="invalid_feedback text-danger">{{ $message }}</div>
         @enderror

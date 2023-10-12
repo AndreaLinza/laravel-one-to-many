@@ -13,12 +13,21 @@
                     <div class="col">
                         <a class="nav-link" href="{{ route('admin.projects.show', $project->slug) }}">
                             <div class="card h-100">
-                                <img src="{{ asset('storage/'. $project->thumb) }}" class="card-img-top h-100" alt="...">
+                                <img src="{{ asset('storage/' . $project->thumb) }}" class="card-img-top h-100" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $project->title }}</h5>
                                     <p class="card-text">{{ $project->short_description }}</p>
-                                    <p class="badge"  style="background-color: rgb({{$project->type->color}})">{{$project->type?->name}}</p>
-                                    <p class="card-text">{{--{{ implode(', ', $project->language) }}--}}</p>
+                                    <p class="badge" style="background-color: rgb({{ $project->type->color }})">
+                                        {{ $project->type?->name }}</p>
+                                    <div class="row row-cols-5">
+                                        @foreach ($project->technologies as $technology)
+                                            <div class="col">
+                                                <i class="{{ $technology?->icon }} rounded-circle p-2"
+                                                    style="background-color: rgb({{ $technology?->color }}); width:30px; aspect-ratio:1/1"></i>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
                                     <a href="{{ $project->link }}" class="">Link</a>
                                 </div>
                             </div>

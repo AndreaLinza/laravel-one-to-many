@@ -38,7 +38,9 @@ class UpdateProjectRequest extends FormRequest
             'release' => 'required|date',
             'link' => 'required|string',
             'language' => 'nullable|string',
-            'type_id' => 'required|exists:types,id'
+            'type_id' => 'required|exists:types,id',
+            'technologies' => 'required|exists:technologies,id',
+            //'project_id' => 'required|exists:projects,id'
         ];
     }
 
@@ -58,7 +60,8 @@ class UpdateProjectRequest extends FormRequest
             'thumb.max' => 'L\'immagine sembra essere troppo lunga, inserire un\'immagine di max 5MB',
             'release'=> 'Selezionare la data di pubblicazione della repo',
             'link' => 'Inserire il link per la repo',
-            'type_id.exists' => 'Selezionare una tipologia'
+            'type_id.exists' => 'Selezionare una tipologia',
+            'technologies' => 'Selezionare uno o più linguaggi utilizzati'
 
         ];
     }
